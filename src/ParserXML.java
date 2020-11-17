@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.zip.ZipInputStream;
 import java.util.List;
 
-public class FileParser {
+public class STAXParser {
     Product product = new Product();
     Ecomarket ecomarket = new Ecomarket();
 
