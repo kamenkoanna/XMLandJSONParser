@@ -8,12 +8,9 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.ZipInputStream;
-import java.util.List;
 
-public class STAXParser {
-    Product product = new Product();
+public class STAXParserXML extends AbstractParser {
+
     Ecomarket ecomarket = new Ecomarket();
 
     public static final String ELEMENT_PRODUCT = "product";
@@ -21,22 +18,14 @@ public class STAXParser {
     public static final String ELEMENT_FLAVOUR = "flavour";
     public static final String ELEMENT_COUNTRY = "country";
     public static final String ELEMENT_COST = "cost";
-    public static final String ELEMENT_EXPIRATIONDATE = "expiration_date";
-    //private final List<Product> id;
-    //private final String file;
     private final XMLInputFactory factory = XMLInputFactory.newInstance();
 
-
-    private  String url="D:/Учеба/3 КУРС/СиТАиРИС/lab4/lab4tree.xml";
-
-//    public FileParser(String file, List<Product> id) {
-//        this.file = file;
-//        this.id = id;
-//    }
-
-    public void parse() throws IOException, XMLStreamException {
+    @Override
+    public Ecomarket EcomarketReturn(String filePath) throws IOException, XMLStreamException {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(url));
+        //String url = "products.xml";
+        XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(filePath));
+        Product product = new Product();
 
         while (reader.hasNext()) {
             XMLEvent nextEvent = reader.nextEvent();
@@ -67,19 +56,15 @@ public class STAXParser {
 
                         break;
                 }
-            }
-            if (nextEvent.isEndElement()) {
+            } if (nextEvent.isEndElement()) {
                 EndElement endElement = nextEvent.asEndElement();
                 if (endElement.getName().getLocalPart().equals("product")) {
-                    System.out.println(product);
                     ecomarket.add(product);
+                    product = new Product();
                 }
             }
         }
+        return ecomarket;
     }
-//    private void parseFile(final XMLEventReader reader) throws XMLStreamException {
-//        String flavour = null;
-//        String country = null;
-//        String cost = null;
-//    }
 }
+
