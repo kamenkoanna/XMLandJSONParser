@@ -13,22 +13,17 @@ public class DOMParserXML extends AbstractParser {
         Product product = new Product();
         try {
 
-            //File fXmlFile = new File("products.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(filePath);
 
             doc.getDocumentElement().normalize();
 
-            //doc.getDocumentElement().getNodeName();
-
             NodeList nList = doc.getElementsByTagName("product");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
                 Node nNode = nList.item(temp);
-
-                //nNode.getNodeName();
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
