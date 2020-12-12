@@ -1,17 +1,11 @@
+package pattern.builder;
+
+import pattern.composite.Item;
+import pattern.composite.Shelf;
+
 public class Builder {
     private Shelf items;
     private Builder parent;
-
-    public Builder()
-    {
-        items = new Shelf();
-    }
-
-    public Builder(String name)
-    {
-        items = new Shelf();
-        items.setCategory(name);
-    }
 
     public void setCategory(String name){
         items.setCategory(name);
@@ -25,9 +19,15 @@ public class Builder {
         items.add(item);
         return this;
     }
-    public Builder startShelf(String name){
+
+    public Builder startShelf(){
         Builder builder = new Builder();
         builder.setParent(this);
+        return builder;
+    }
+
+    public Builder startShelf(String name){
+        Builder builder = startShelf();
         builder.setCategory(name);
         return builder;
     }

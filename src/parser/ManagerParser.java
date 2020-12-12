@@ -1,15 +1,19 @@
+package parser;
+
 public class ManagerParser {
-    static Object manage(String fileName, XML_STYLE choice){
+    public static Object manage(String fileName, XML_STYLE choice){
         String extension = fileName.substring(fileName.lastIndexOf("."));
         switch(extension){
             case ".xml":
-                switch(choice) {
-                    case STAX:
+                switch (choice) {
+                    case STAX -> {
                         System.out.println("STAX XML Parser");
                         return new STAXParserXML();
-                    case DOM:
+                    }
+                    case DOM -> {
                         System.out.println("DOM XML Parser");
                         return new DOMParserXML();
+                    }
                 }
             case ".json":
                 System.out.println("json:\n");

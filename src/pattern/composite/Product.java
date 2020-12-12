@@ -1,3 +1,7 @@
+package pattern.composite;
+
+import pattern.visitor.Visitor;
+
 public class Product implements Item{
     private static int staticId = 0;
     private String id;
@@ -109,5 +113,15 @@ public class Product implements Item{
     @Override
     public int getPrice() {
         return Integer.parseInt(cost);
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
+    @Override
+    public Item clone() {
+        return new Product(id, flavour, country, cost, category);
     }
 }

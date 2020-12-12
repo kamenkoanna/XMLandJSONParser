@@ -1,8 +1,12 @@
-import javax.xml.namespace.QName;
+package parser;
+
+import pattern.builder.Builder;
+import pattern.composite.Product;
+import pattern.composite.Shelf;
+
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
@@ -11,33 +15,29 @@ import java.io.IOException;
 
 public class STAXParserXML extends AbstractParser {
 
-    Shelf shelf = new Shelf();
+    Builder builder;
+    Product product;
 
+    public static final String ELEMENT_SHELF = "ecomarket";
     public static final String ELEMENT_PRODUCT = "product";
     private static final String ELEMENT_ID = "id";
     public static final String ELEMENT_FLAVOUR = "flavour";
     public static final String ELEMENT_COUNTRY = "country";
     public static final String ELEMENT_COST = "cost";
-    private final XMLInputFactory factory = XMLInputFactory.newInstance();
 
     @Override
     public Shelf shelfReturn(String filePath) throws IOException, XMLStreamException {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        //String url = "products.xml";
         XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(filePath));
-        Product product = new Product();
 
         while (reader.hasNext()) {
+            builder = new Builder();
             XMLEvent nextEvent = reader.nextEvent();
             if (nextEvent.isStartElement()) {
                 StartElement startElement = nextEvent.asStartElement();
                 switch (startElement.getName().getLocalPart()) {
-                    case ELEMENT_PRODUCT -> {
-                        Attribute category = startElement.getAttributeByName(new QName("category"));
-                        if (category != null) {
-                            product.setCategory(category.getValue());
-                        }
-                    }
+                    case ELEMENT_SHELF -> builder.startShelf();
+                    case ELEMENT_PRODUCT -> product = new Product();
                     case ELEMENT_ID -> {
                         nextEvent = reader.nextEvent();
                         product.setId(nextEvent.asCharacters().getData());
@@ -54,16 +54,20 @@ public class STAXParserXML extends AbstractParser {
                         nextEvent = reader.nextEvent();
                         product.setCost(nextEvent.asCharacters().getData());
                     }
+                    default -> throw new IllegalStateException("Unexpected value: " + startElement.getName().getLocalPart());
                 }
-            } if (nextEvent.isEndElement()) {
+            }
+            if (nextEvent.isEndElement()) {
                 EndElement endElement = nextEvent.asEndElement();
-                if (endElement.getName().getLocalPart().equals("product")) {
-                    shelf.add(product);
-                    product = new Product();
+                switch (endElement.getName().getLocalPart()) {
+                    case ELEMENT_PRODUCT -> builder.item(product);
+                    case ELEMENT_SHELF -> builder.endShelf();
+                    default -> throw new IllegalStateException("Unexpected value: " + endElement.getName().getLocalPart());
                 }
             }
         }
-        return shelf;
+
+        return builder.getItems();
     }
 }
 

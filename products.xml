@@ -2,41 +2,46 @@
 
 <!DOCTYPE ecomarket [
 <!ELEMENT ecomarket (product*)>
-<!ELEMENT product (id, flavour, country, cost)>
+<!ELEMENT product (id, category, flavour, country, cost)>
 <!ELEMENT id (#PCDATA)>
+		<!ELEMENT category (#PCDATA)>
 <!ELEMENT flavour (#PCDATA)>
 <!ELEMENT country (#PCDATA)>
 <!ELEMENT cost (#PCDATA)>
-<!ATTLIST product category CDATA #REQUIRED>
 ]>
 
 <ecomarket>
-	<product category="Milk">
+	<product>
 		<id>10</id>
+		<category>Milk</category>
 		<flavour>Almond</flavour>
 		<country>Poland</country>
 		<cost>15</cost>
 	</product>
-	<product category="Soybean">
+	<product>
 		<id>20</id>
+		<category>Soybean</category>
 		<flavour>Pork</flavour>
 		<country>Lithuania</country>
 		<cost>50</cost>
 	</product>
-	<product category="Milk">
+	<product>
 		<id>11</id>
+		<category>Milk</category>
 		<flavour>Coconut</flavour>
 		<country>Poland</country>
 		<cost>15</cost>
 	</product>
-	<product category="Soybean">
+	<product>
 		<id>26</id>
+		<category>Soybean</category>
 		<flavour>tofu</flavour>
 		<country>China</country>
 		<cost>5</cost>
 	</product>
-	<product category="Granola">
+	<product>
 		<id>30</id>
+		<category>Granola</category>
 		<flavour>Berries</flavour>
 		<country>Poland</country>
 		<cost>20</cost>

@@ -1,5 +1,10 @@
+package parser;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+
+import pattern.composite.Product;
+import pattern.composite.Shelf;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -28,7 +33,7 @@ public class DOMParserXML extends AbstractParser {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element eElement = (Element) nNode;
-                    product.setCategory(eElement.getAttribute("category"));
+                    product.setCategory(eElement.getElementsByTagName("category").item(0).getTextContent());
                     product.setId(eElement.getElementsByTagName("id").item(0).getTextContent());
                     product.setFlavour(eElement.getElementsByTagName("flavour").item(0).getTextContent());
                     product.setCountry(eElement.getElementsByTagName("country").item(0).getTextContent());
