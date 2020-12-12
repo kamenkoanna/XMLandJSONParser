@@ -8,8 +8,8 @@ import org.w3c.dom.Element;
 
 public class DOMParserXML extends AbstractParser {
 
-        public Ecomarket EcomarketReturn(String filePath){
-        Ecomarket ecomarket = new Ecomarket();
+        public Shelf shelfReturn(String filePath){
+        Shelf shelf = new Shelf();
         Product product = new Product();
         try {
 
@@ -33,7 +33,7 @@ public class DOMParserXML extends AbstractParser {
                     product.setFlavour(eElement.getElementsByTagName("flavour").item(0).getTextContent());
                     product.setCountry(eElement.getElementsByTagName("country").item(0).getTextContent());
                     product.setCost(eElement.getElementsByTagName("cost").item(0).getTextContent());
-                    ecomarket.add(product);
+                    shelf.add(product);
                     product = new Product();
                 }
             }
@@ -41,6 +41,6 @@ public class DOMParserXML extends AbstractParser {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return ecomarket;
+        return shelf;
     }
 }

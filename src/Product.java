@@ -1,19 +1,69 @@
 public class Product implements Item{
+    private static int staticId = 0;
     private String id;
     private String flavour;
     private String country;
     private String cost;
     private String category;
 
+    public Product() {
+        id = String.valueOf(staticId++);
+        this.flavour = null;
+        this.country = null;
+        this.cost = null;
+        this.category = null;
+    }
+
+    public Product(String category) {
+        id = String.valueOf(staticId++);
+        this.category = category;
+        this.flavour = null;
+        this.country = null;
+        this.cost = null;
+        this.category = null;
+    }
+
+    public Product(String flavour, String category) {
+        id = String.valueOf(staticId++);
+        this.category = category;
+        this.flavour = flavour;
+        this.country = null;
+        this.cost = null;
+        this.category = null;
+    }
+
+    public Product(String flavour, String country, String cost, String category) {
+        id = String.valueOf(staticId++);
+        this.flavour = flavour;
+        this.country = country;
+        this.cost = cost;
+        this.category = category;
+    }
+
+    public Product(String id, String flavour, String country, String cost, String category) {
+        this.id = id;
+        this.flavour = flavour;
+        this.country = country;
+        this.cost = cost;
+        this.category = category;
+    }
+
+
     @Override
     public String toString()
     {
-        return "Product{" +
-                "id=" + id +
-                ", flavour='" + flavour + '\'' +
-                ", country='" + country + '\'' +
-                ", cost=" + cost +
-                '}';
+        StringBuilder str = new StringBuilder();
+        if(flavour != null)
+            str.append(flavour).append(" ");
+        if(category != null)
+            str.append(category);
+        if(country != null)
+            str.append(", ").append(country);
+        if(cost != null)
+            str.append("\t\t").append(cost);
+        str.append("\n");
+
+        return str.toString();
     }
 
     public void setId(String id) {

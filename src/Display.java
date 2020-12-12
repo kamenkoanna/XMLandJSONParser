@@ -3,7 +3,7 @@ public class Display {
         System.out.println(p);
     }
 
-    public static void show(Ecomarket ecomarket){
-        ecomarket.getProductsList().forEach(System.out::println);
+    public static void show(Shelf shelf){
+        shelf.getChildren().forEach(System.out::println);
     }
 }

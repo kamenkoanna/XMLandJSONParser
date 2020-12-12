@@ -11,8 +11,8 @@ import org.json.simple.parser.ParseException;
 public class ParserJSON  extends AbstractParser {
 
     @Override
-    public Ecomarket EcomarketReturn(String filePath) {
-        Ecomarket products = new Ecomarket();
+    public Shelf shelfReturn(String filePath) {
+        Shelf products = new Shelf();
 
         try {
 

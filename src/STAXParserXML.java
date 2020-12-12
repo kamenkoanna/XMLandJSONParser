@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class STAXParserXML extends AbstractParser {
 
-    Ecomarket ecomarket = new Ecomarket();
+    Shelf shelf = new Shelf();
 
     public static final String ELEMENT_PRODUCT = "product";
     private static final String ELEMENT_ID = "id";
@@ -21,7 +21,7 @@ public class STAXParserXML extends AbstractParser {
     private final XMLInputFactory factory = XMLInputFactory.newInstance();
 
     @Override
-    public Ecomarket EcomarketReturn(String filePath) throws IOException, XMLStreamException {
+    public Shelf shelfReturn(String filePath) throws IOException, XMLStreamException {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         //String url = "products.xml";
         XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(filePath));
@@ -32,39 +32,38 @@ public class STAXParserXML extends AbstractParser {
             if (nextEvent.isStartElement()) {
                 StartElement startElement = nextEvent.asStartElement();
                 switch (startElement.getName().getLocalPart()) {
-                    case ELEMENT_PRODUCT:
+                    case ELEMENT_PRODUCT -> {
                         Attribute category = startElement.getAttributeByName(new QName("category"));
                         if (category != null) {
                             product.setCategory(category.getValue());
                         }
-                        break;
-                    case ELEMENT_ID:
+                    }
+                    case ELEMENT_ID -> {
                         nextEvent = reader.nextEvent();
                         product.setId(nextEvent.asCharacters().getData());
-                        break;
-                    case ELEMENT_FLAVOUR:
+                    }
+                    case ELEMENT_FLAVOUR -> {
                         nextEvent = reader.nextEvent();
                         product.setFlavour(nextEvent.asCharacters().getData());
-                        break;
-                    case ELEMENT_COUNTRY:
+                    }
+                    case ELEMENT_COUNTRY -> {
                         nextEvent = reader.nextEvent();
                         product.setCountry(nextEvent.asCharacters().getData());
-                        break;
-                    case ELEMENT_COST:
+                    }
+                    case ELEMENT_COST -> {
                         nextEvent = reader.nextEvent();
                         product.setCost(nextEvent.asCharacters().getData());
-
-                        break;
+                    }
                 }
             } if (nextEvent.isEndElement()) {
                 EndElement endElement = nextEvent.asEndElement();
                 if (endElement.getName().getLocalPart().equals("product")) {
-                    ecomarket.add(product);
+                    shelf.add(product);
                     product = new Product();
                 }
             }
         }
-        return ecomarket;
+        return shelf;
     }
 }
 
