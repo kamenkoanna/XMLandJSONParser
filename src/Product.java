@@ -1,4 +1,4 @@
-public class Product {
+public class Product implements Item{
     private String id;
     private String flavour;
     private String country;
@@ -54,5 +54,10 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public int getPrice() {
+        return Integer.parseInt(cost);
     }
 }
