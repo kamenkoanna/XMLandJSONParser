@@ -1,0 +1,41 @@
+{
+  "ecomarket": {
+    "product": [
+      {
+        "-category": "Milk",
+        "id": "10",
+        "flavour": "Almond",
+        "country": "Poland",
+        "cost": "15"
+      },
+      {
+        "-category": "Soybean",
+        "id": "20",
+        "flavour": "Pork",
+        "country": "Lithuania",
+        "cost": "50"
+      },
+      {
+        "-category": "Milk",
+        "id": "11",
+        "flavour": "Coconut",
+        "country": "Poland",
+        "cost": "15"
+      },
+      {
+        "-category": "Soybean",
+        "id": "26",
+        "flavour": "tofu",
+        "country": "China",
+        "cost": "5"
+      },
+      {
+        "-category": "Granola",
+        "id": "30",
+        "flavour": "Berries",
+        "country": "Poland",
+        "cost": "20"
+      }
+    ]
+  }
+}
